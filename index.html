@@ -123,13 +123,23 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 .send-btn:hover{background:var(--purple3)}
 
 /* ── RIGHT PANEL ── */
-.right-panel{width:300px;min-width:300px;background:var(--bg2);border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column}
+.right-panel{width:310px;min-width:310px;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
 .right-panel::-webkit-scrollbar{width:3px}
 .right-panel::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
+/* Card / Info tab switcher at top of right panel */
+.rp-tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0}
+.rp-tab{flex:1;padding:10px 0;text-align:center;font-size:12px;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:.15s;user-select:none}
+.rp-tab:hover{color:var(--text2)}
+.rp-tab.active{color:var(--purple2);border-bottom-color:var(--purple)}
+.rp-tab-content{display:none;flex:1;overflow-y:auto;flex-direction:column}
+.rp-tab-content.active{display:flex}
+.rp-tab-content::-webkit-scrollbar{width:3px}
+.rp-tab-content::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
 /* Panel section with collapsible */
-.rp-section{border-bottom:1px solid var(--border)}
-.rp-sec-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;cursor:pointer;user-select:none}
+.rp-section{border-bottom:1px solid var(--border);flex-shrink:0}
+.rp-sec-header{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;user-select:none}
 .rp-sec-header:hover{background:var(--bg3)}
 .rp-sec-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
 .rp-sec-title i{font-size:13px}
@@ -139,21 +149,24 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 .rp-section.collapsed .rp-chevron{transform:rotate(-90deg)}
 
 /* Contact card */
-.contact-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px 14px 4px}
-.contact-big-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:10px;flex-shrink:0;border:3px solid var(--border2)}
+.contact-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px 14px 12px;border-bottom:1px solid var(--border);flex-shrink:0}
+.contact-big-av{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:9px;flex-shrink:0;border:3px solid var(--border2);cursor:pointer;transition:.15s}
+.contact-big-av:hover{border-color:var(--purple)}
 .contact-cname{font-size:15px;font-weight:700;margin-bottom:2px}
 .contact-cemail{font-size:12px;color:var(--text2);margin-bottom:2px}
 .contact-cloc{font-size:11px;color:var(--text3);display:flex;align-items:center;justify-content:center;gap:3px}
 
 /* Assign agent */
-.assign-block{margin-top:10px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.assign-block{margin-top:0;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
 .assign-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px}
-.assign-current{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.assign-current{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .agent-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
 .agent-name{font-size:13px;font-weight:600;flex:1}
 .assign-change-btn{font-size:11px;color:var(--purple2);cursor:pointer;background:none;border:none;padding:0;display:flex;align-items:center;gap:3px}
 .assign-change-btn:hover{color:var(--purple)}
-.agent-dropdown{background:var(--bg);border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin-top:6px}
+.assign-me-btn{width:100%;padding:6px;border-radius:7px;border:1px dashed var(--purple3);background:transparent;color:var(--purple2);font-size:11.5px;font-weight:600;cursor:pointer;margin-bottom:7px;transition:.15s;display:flex;align-items:center;justify-content:center;gap:5px}
+.assign-me-btn:hover{background:var(--purplebg);border-color:var(--purple)}
+.agent-dropdown{background:var(--bg);border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin-top:4px}
 .agent-option{display:flex;align-items:center;gap:8px;padding:8px 10px;cursor:pointer;transition:.15s;font-size:12.5px}
 .agent-option:hover{background:var(--bg3)}
 .agent-option.selected{background:var(--purplebg);color:var(--purple2)}
@@ -372,10 +385,10 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
           </div>
         </div>
         <div class="conv-tabs">
-          <div class="tab active" onclick="switchTab(this)">All</div>
-          <div class="tab" onclick="switchTab(this)">Open <span class="count">3</span></div>
-          <div class="tab" onclick="switchTab(this)">Pending <span class="count">2</span></div>
-          <div class="tab" onclick="switchTab(this)">Resolved</div>
+          <div class="tab active" onclick="switchTab(this,'all')">All</div>
+          <div class="tab" onclick="switchTab(this,'me')">Me <span class="count">2</span></div>
+          <div class="tab" onclick="switchTab(this,'open')">Open <span class="count">3</span></div>
+          <div class="tab" onclick="switchTab(this,'resolved')">Resolved</div>
         </div>
         <div class="conv-items">
           <div class="conv-item active" onclick="selectConv(this,'Emily Johnson','EJ','linear-gradient(135deg,#667eea,#764ba2)')">
@@ -507,114 +520,134 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
       <!-- Right: customer panel -->
       <div class="right-panel">
 
-        <!-- 1. Contact Card -->
-        <div class="contact-card">
-          <div class="contact-big-av" id="rp-av">EJ</div>
-          <div class="contact-cname" id="rp-name">Emily Johnson</div>
-          <div class="contact-cemail">emily.johnson@email.com</div>
-          <div class="contact-cloc"><i class="ti ti-map-pin" style="font-size:11px"></i> New York, USA</div>
-
-          <!-- Assign to Agent -->
-          <div class="assign-block" style="width:100%;margin-top:12px">
-            <div class="assign-label">Assigned Agent</div>
-            <div class="assign-current">
-              <div class="agent-av" style="background:linear-gradient(135deg,#667eea,#764ba2)">SW</div>
-              <span class="agent-name" id="assigned-name">Sarah Wilson</span>
-              <button class="assign-change-btn" onclick="toggleAgentDD()">
-                <i class="ti ti-transfer"></i> Change
-              </button>
-            </div>
-            <div class="agent-dropdown" id="agent-dd" style="display:none">
-              <div class="agent-option selected" onclick="assignAgent(this,'Sarah Wilson','SW','linear-gradient(135deg,#667eea,#764ba2)')">
-                <div class="agent-av" style="background:linear-gradient(135deg,#667eea,#764ba2);width:24px;height:24px;font-size:9px">SW</div>
-                <span style="flex:1">Sarah Wilson</span>
-                <div class="agent-status-dot" style="background:var(--green)"></div>
-              </div>
-              <div class="agent-option" onclick="assignAgent(this,'John Davis','JD','linear-gradient(135deg,#4facfe,#00f2fe)')">
-                <div class="agent-av" style="background:linear-gradient(135deg,#4facfe,#00f2fe);width:24px;height:24px;font-size:9px">JD</div>
-                <span style="flex:1">John Davis</span>
-                <div class="agent-status-dot" style="background:var(--green)"></div>
-              </div>
-              <div class="agent-option" onclick="assignAgent(this,'Amy Chen','AC','linear-gradient(135deg,#f093fb,#f5576c)')">
-                <div class="agent-av" style="background:linear-gradient(135deg,#f093fb,#f5576c);width:24px;height:24px;font-size:9px">AC</div>
-                <span style="flex:1">Amy Chen</span>
-                <div class="agent-status-dot" style="background:var(--amber)"></div>
-              </div>
-              <div class="agent-option" onclick="assignAgent(this,'Mohamed Ali','MA','linear-gradient(135deg,#43e97b,#38f9d7)')">
-                <div class="agent-av" style="background:linear-gradient(135deg,#43e97b,#38f9d7);width:24px;height:24px;font-size:9px">MA</div>
-                <span style="flex:1">Mohamed Ali</span>
-                <div class="agent-status-dot" style="background:var(--red)"></div>
-              </div>
-            </div>
-          </div>
+        <!-- Tab bar: Card / Info -->
+        <div class="rp-tab-bar">
+          <div class="rp-tab active" onclick="switchRpTab('card',this)"><i class="ti ti-id-badge" style="font-size:13px;vertical-align:-2px;margin-right:4px"></i>Card</div>
+          <div class="rp-tab" onclick="switchRpTab('info',this)"><i class="ti ti-info-circle" style="font-size:13px;vertical-align:-2px;margin-right:4px"></i>Info</div>
         </div>
 
-        <!-- 2. Previous Conversations -->
-        <div class="rp-section">
-          <div class="rp-sec-header" onclick="toggleSection(this)">
-            <span class="rp-sec-title"><i class="ti ti-history"></i> Previous Conversations</span>
-            <i class="ti ti-chevron-down rp-chevron"></i>
+        <!-- ══ CARD TAB ══ -->
+        <div class="rp-tab-content active" id="rp-tab-card">
+
+          <!-- Contact card: avatar + name -->
+          <div class="contact-card">
+            <div class="contact-big-av" id="rp-av" title="Click to view profile" onclick="alert('Profile page coming soon!')">EJ</div>
+            <div class="contact-cname" id="rp-name">Emily Johnson</div>
+            <div class="contact-cemail">emily.johnson@email.com</div>
+            <div class="contact-cloc"><i class="ti ti-map-pin" style="font-size:11px"></i> New York, USA</div>
           </div>
-          <div class="rp-sec-body">
-            <div class="prev-conv-list">
-              <div class="prev-conv-item">
-                <i class="ti ti-message-circle" style="font-size:15px;color:var(--text3);flex-shrink:0"></i>
-                <div class="prev-conv-info">
-                  <div class="prev-conv-subject">Shipping delay question</div>
-                  <div class="prev-conv-date">May 10, 2024</div>
+
+          <!-- Assign to Agent section -->
+          <div class="rp-section">
+            <div class="rp-sec-header" onclick="toggleSection(this)">
+              <span class="rp-sec-title"><i class="ti ti-user-check"></i> Assign to Agent</span>
+              <i class="ti ti-chevron-down rp-chevron"></i>
+            </div>
+            <div class="rp-sec-body">
+              <div class="assign-block">
+                <div class="assign-label">Currently Assigned</div>
+                <div class="assign-current">
+                  <div class="agent-av" id="assigned-av" style="background:linear-gradient(135deg,#667eea,#764ba2)">SW</div>
+                  <span class="agent-name" id="assigned-name">Sarah Wilson</span>
+                  <button class="assign-change-btn" onclick="toggleAgentDD()">
+                    <i class="ti ti-transfer"></i> Change
+                  </button>
                 </div>
-                <span class="prev-conv-badge pcs-resolved">Resolved</span>
-              </div>
-              <div class="prev-conv-item">
-                <i class="ti ti-message-circle" style="font-size:15px;color:var(--text3);flex-shrink:0"></i>
-                <div class="prev-conv-info">
-                  <div class="prev-conv-subject">Return & refund request</div>
-                  <div class="prev-conv-date">Apr 28, 2024</div>
+                <!-- Assign to Me quick button -->
+                <button class="assign-me-btn" onclick="assignToMe()">
+                  <i class="ti ti-user-plus"></i> Assign to Me
+                </button>
+                <!-- Agent dropdown -->
+                <div class="agent-dropdown" id="agent-dd" style="display:none">
+                  <div class="agent-option selected" onclick="assignAgent(this,'Sarah Wilson','SW','linear-gradient(135deg,#667eea,#764ba2)')">
+                    <div class="agent-av" style="background:linear-gradient(135deg,#667eea,#764ba2);width:24px;height:24px;font-size:9px">SW</div>
+                    <span style="flex:1">Sarah Wilson</span>
+                    <div class="agent-status-dot" style="background:var(--green)" title="Online"></div>
+                  </div>
+                  <div class="agent-option" onclick="assignAgent(this,'John Davis','JD','linear-gradient(135deg,#4facfe,#00f2fe)')">
+                    <div class="agent-av" style="background:linear-gradient(135deg,#4facfe,#00f2fe);width:24px;height:24px;font-size:9px">JD</div>
+                    <span style="flex:1">John Davis</span>
+                    <div class="agent-status-dot" style="background:var(--green)" title="Online"></div>
+                  </div>
+                  <div class="agent-option" onclick="assignAgent(this,'Amy Chen','AC','linear-gradient(135deg,#f093fb,#f5576c)')">
+                    <div class="agent-av" style="background:linear-gradient(135deg,#f093fb,#f5576c);width:24px;height:24px;font-size:9px">AC</div>
+                    <span style="flex:1">Amy Chen</span>
+                    <div class="agent-status-dot" style="background:var(--amber)" title="Away"></div>
+                  </div>
+                  <div class="agent-option" onclick="assignAgent(this,'Mohamed Ali','MA','linear-gradient(135deg,#43e97b,#38f9d7)')">
+                    <div class="agent-av" style="background:linear-gradient(135deg,#43e97b,#38f9d7);width:24px;height:24px;font-size:9px">MA</div>
+                    <span style="flex:1">Mohamed Ali</span>
+                    <div class="agent-status-dot" style="background:var(--red)" title="Offline"></div>
+                  </div>
                 </div>
-                <span class="prev-conv-badge pcs-resolved">Resolved</span>
-              </div>
-              <div class="prev-conv-item">
-                <i class="ti ti-message-circle" style="font-size:15px;color:var(--text3);flex-shrink:0"></i>
-                <div class="prev-conv-info">
-                  <div class="prev-conv-subject">Account login issue</div>
-                  <div class="prev-conv-date">Apr 15, 2024</div>
-                </div>
-                <span class="prev-conv-badge pcs-closed">Closed</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- 3. AI Assistant -->
-        <div class="rp-section">
-          <div class="rp-sec-header" onclick="toggleSection(this)">
-            <span class="rp-sec-title"><i class="ti ti-sparkles"></i> AI Assistant</span>
-            <i class="ti ti-chevron-down rp-chevron"></i>
-          </div>
-          <div class="rp-sec-body">
-            <div class="ai-rp-btns">
-              <button class="ai-rp-btn gen" onclick="aiRpAction('generate')">
-                <i class="ti ti-wand"></i> Generate Reply
-              </button>
-              <button class="ai-rp-btn sum" onclick="aiRpAction('summarize')">
-                <i class="ti ti-file-text"></i> Summarize Chat
-              </button>
+          <!-- AI Assistant -->
+          <div class="rp-section">
+            <div class="rp-sec-header" onclick="toggleSection(this)">
+              <span class="rp-sec-title"><i class="ti ti-sparkles"></i> AI Assistant</span>
+              <i class="ti ti-chevron-down rp-chevron"></i>
             </div>
-            <div class="ai-result-box" id="ai-result-box"></div>
+            <div class="rp-sec-body">
+              <div class="ai-rp-btns">
+                <button class="ai-rp-btn gen" onclick="aiRpAction('generate')">
+                  <i class="ti ti-wand"></i> Generate Reply
+                </button>
+                <button class="ai-rp-btn sum" onclick="aiRpAction('summarize')">
+                  <i class="ti ti-file-text"></i> Summarize Chat
+                </button>
+              </div>
+              <div class="ai-result-box" id="ai-result-box"></div>
+            </div>
           </div>
-        </div>
 
-        <!-- 4. Customer Info -->
-        <div class="rp-section">
-          <div class="rp-sec-header" onclick="toggleSection(this)">
-            <span class="rp-sec-title"><i class="ti ti-info-circle"></i> Customer Info</span>
-            <i class="ti ti-chevron-down rp-chevron"></i>
+          <!-- Previous Conversations -->
+          <div class="rp-section">
+            <div class="rp-sec-header" onclick="toggleSection(this)">
+              <span class="rp-sec-title"><i class="ti ti-history"></i> Previous Conversations</span>
+              <i class="ti ti-chevron-down rp-chevron"></i>
+            </div>
+            <div class="rp-sec-body">
+              <div class="prev-conv-list">
+                <div class="prev-conv-item">
+                  <i class="ti ti-message-circle" style="font-size:15px;color:var(--text3);flex-shrink:0"></i>
+                  <div class="prev-conv-info">
+                    <div class="prev-conv-subject">Shipping delay question</div>
+                    <div class="prev-conv-date">May 10, 2024 — 2:30 PM</div>
+                  </div>
+                  <span class="prev-conv-badge pcs-resolved">Resolved</span>
+                </div>
+                <div class="prev-conv-item">
+                  <i class="ti ti-message-circle" style="font-size:15px;color:var(--text3);flex-shrink:0"></i>
+                  <div class="prev-conv-info">
+                    <div class="prev-conv-subject">Return &amp; refund request</div>
+                    <div class="prev-conv-date">Apr 28, 2024 — 1:15 PM</div>
+                  </div>
+                  <span class="prev-conv-badge pcs-resolved">Resolved</span>
+                </div>
+                <div class="prev-conv-item">
+                  <i class="ti ti-message-circle" style="font-size:15px;color:var(--text3);flex-shrink:0"></i>
+                  <div class="prev-conv-info">
+                    <div class="prev-conv-subject">Account login issue</div>
+                    <div class="prev-conv-date">Apr 15, 2024 — 11:05 AM</div>
+                  </div>
+                  <span class="prev-conv-badge pcs-closed">Closed</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="rp-sec-body">
+
+        </div><!-- /rp-tab-card -->
+
+        <!-- ══ INFO TAB ══ -->
+        <div class="rp-tab-content" id="rp-tab-info">
+          <div style="padding:14px">
 
             <!-- Phone numbers -->
-            <div style="margin-bottom:12px">
-              <div style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;display:flex;align-items:center;gap:5px">
+            <div style="margin-bottom:14px">
+              <div style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;display:flex;align-items:center;gap:5px">
                 <i class="ti ti-phone" style="font-size:13px"></i> Phone Numbers
               </div>
               <div class="info-field-group" id="phone-list">
@@ -631,12 +664,11 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
             <div class="sec-divider"></div>
 
             <!-- Devices -->
-            <div style="margin-top:12px">
-              <div style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;display:flex;align-items:center;gap:5px">
+            <div style="margin-top:14px">
+              <div style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;display:flex;align-items:center;gap:5px">
                 <i class="ti ti-device-laptop" style="font-size:13px"></i> Devices
               </div>
               <div class="device-list" id="device-list">
-                <!-- device 1 -->
                 <div class="device-card">
                   <div class="device-card-header">
                     <span class="device-num">Device 1</span>
@@ -648,8 +680,8 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
                       <input class="info-field-input" style="width:100%" placeholder="e.g. MacBook Pro" value="MacBook Pro">
                     </div>
                     <div>
-                      <div class="device-field-label">Serial / Unique Number</div>
-                      <input class="info-field-input" style="width:100%" placeholder="e.g. SN-001234" value="SN-884521">
+                      <div class="device-field-label">AnyDesk Number</div>
+                      <input class="info-field-input" style="width:100%" placeholder="e.g. 123 456 789" value="987 654 321">
                     </div>
                     <div>
                       <div class="device-field-label">Password</div>
@@ -667,7 +699,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
             </div>
 
           </div>
-        </div>
+        </div><!-- /rp-tab-info -->
 
       </div><!-- /right-panel -->
     </div><!-- /page-chats -->
@@ -872,9 +904,54 @@ function showPage(name, el) {
   document.getElementById('page-' + name).classList.add('active');
   if (el) el.classList.add('active');
 }
-function switchTab(el) {
+
+/* Conv tabs with filter logic */
+const allConvData = [
+  {name:'Emily Johnson',init:'EJ',bg:'linear-gradient(135deg,#667eea,#764ba2)',msg:'Hi! I need help with my order.',time:'10:24 AM',unread:2,status:'open',mine:true},
+  {name:'Michael Brown',init:'MB',bg:'linear-gradient(135deg,#4facfe,#00f2fe)',msg:'Can you tell me about pricing?',time:'09:58 AM',unread:1,status:'open',mine:false},
+  {name:'Sophia Martinez',init:'SM',bg:'linear-gradient(135deg,#f093fb,#f5576c)',msg:'Thank you so much!',time:'09:41 AM',unread:0,status:'resolved',mine:true},
+  {name:'Daniel Lee',init:'DL',bg:'linear-gradient(135deg,#43e97b,#38f9d7)',msg:'My account is not working.',time:'Yesterday',unread:2,status:'open',mine:false},
+  {name:'Olivia Davis',init:'OD',bg:'linear-gradient(135deg,#fa709a,#fee140)',msg:'Do you offer discounts?',time:'Yesterday',unread:0,status:'open',mine:false},
+  {name:'James Wilson',init:'JW',bg:'linear-gradient(135deg,#a18cd1,#fbc2eb)',msg:'I have a question about features.',time:'Yesterday',unread:1,status:'open',mine:true},
+  {name:'Isabella Taylor',init:'IT',bg:'linear-gradient(135deg,#fccb90,#d57eeb)',msg:'Great support! ⭐⭐⭐⭐⭐',time:'2d ago',unread:0,status:'resolved',mine:false},
+];
+let currentTab = 'all';
+
+function switchTab(el, filter) {
   el.closest('.conv-tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
+  currentTab = filter;
+  renderConvList(filter);
+}
+
+function renderConvList(filter) {
+  const container = document.querySelector('.conv-items');
+  let filtered = allConvData;
+  if (filter === 'me') filtered = allConvData.filter(c => c.mine && c.status === 'open');
+  else if (filter === 'open') filtered = allConvData.filter(c => c.status === 'open');
+  else if (filter === 'resolved') filtered = allConvData.filter(c => c.status === 'resolved');
+
+  container.innerHTML = filtered.map((c, i) =>
+    `<div class="conv-item${i===0?' active':''}" onclick="selectConv(this,'${c.name}','${c.init}','${c.bg}')">
+      <div class="conv-avatar" style="background:${c.bg}">${c.init}</div>
+      <div class="conv-info">
+        <div class="conv-name-row"><span class="conv-name">${c.name}</span><span class="conv-time">${c.time}</span></div>
+        <div class="conv-msg">${c.msg}</div>
+      </div>
+      ${c.unread>0?`<div class="unread-badge">${c.unread}</div>`:''}
+    </div>`
+  ).join('');
+  // re-select first
+  const first = container.querySelector('.conv-item');
+  if (first) selectConv(first, filtered[0].name, filtered[0].init, filtered[0].bg);
+}
+
+/* ── Right Panel Tab ── */
+function switchRpTab(tab, el) {
+  document.querySelectorAll('.rp-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.rp-tab-content').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('rp-tab-' + tab).classList.add('active');
 }
 
 /* ── Select conversation ── */
@@ -901,10 +978,20 @@ function toggleAgentDD() {
   const dd = document.getElementById('agent-dd');
   dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
 }
+function assignToMe() {
+  document.getElementById('assigned-name').textContent = 'Sarah Wilson (Me)';
+  document.getElementById('assigned-av').style.background = 'linear-gradient(135deg,#667eea,#764ba2)';
+  document.getElementById('assigned-av').textContent = 'SW';
+  document.getElementById('agent-dd').style.display = 'none';
+  document.querySelectorAll('.agent-option').forEach(o => o.classList.remove('selected'));
+  document.querySelector('.agent-option').classList.add('selected');
+}
 function assignAgent(el, name, initials, bg) {
   el.closest('.agent-dropdown').querySelectorAll('.agent-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById('assigned-name').textContent = name;
+  document.getElementById('assigned-av').style.background = bg;
+  document.getElementById('assigned-av').textContent = initials;
   document.getElementById('agent-dd').style.display = 'none';
 }
 
@@ -967,7 +1054,6 @@ let deviceCount = 1;
 function addDevice() {
   deviceCount++;
   const list = document.getElementById('device-list');
-  // Make all existing remove buttons visible
   list.querySelectorAll('.device-remove').forEach(b => b.style.visibility = 'visible');
   const pwId = 'pw-' + deviceCount;
   const card = document.createElement('div');
@@ -983,8 +1069,8 @@ function addDevice() {
         <input class="info-field-input" style="width:100%" placeholder="e.g. iPhone 15">
       </div>
       <div>
-        <div class="device-field-label">Serial / Unique Number</div>
-        <input class="info-field-input" style="width:100%" placeholder="e.g. SN-001234">
+        <div class="device-field-label">AnyDesk Number</div>
+        <input class="info-field-input" style="width:100%" placeholder="e.g. 123 456 789">
       </div>
       <div>
         <div class="device-field-label">Password</div>
