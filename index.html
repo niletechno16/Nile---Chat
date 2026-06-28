@@ -87,6 +87,37 @@ h1,h2,h3,h4{font-family:'Space Grotesk','DM Sans',sans-serif}
 .ch-action-btn{width:38px;height:38px;border-radius:10px;border:none;background:transparent;color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .ch-action-btn:hover{background:var(--bg);color:var(--primary)}
 .ch-action-btn.panel-open{color:var(--primary);background:rgba(108,92,231,0.08)}
+/* Resolve Button */
+.resolve-btn{height:34px;padding:0 14px;border-radius:10px;border:1.5px solid var(--success);background:rgba(16,185,129,0.08);color:var(--success);font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s;font-family:inherit;white-space:nowrap}
+.resolve-btn:hover{background:var(--success);color:#fff;box-shadow:0 4px 12px rgba(16,185,129,0.35)}
+.resolve-btn.resolved-state{background:rgba(100,116,139,0.1);border-color:var(--text-secondary);color:var(--text-secondary);cursor:default}
+.resolve-btn.resolved-state:hover{background:rgba(100,116,139,0.1);color:var(--text-secondary);box-shadow:none}
+/* Resolve Popup Overlay */
+.resolve-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.resolve-overlay.show{opacity:1;pointer-events:all}
+.resolve-modal{background:var(--surface);border-radius:20px;padding:28px 28px 24px;width:440px;max-width:calc(100vw - 32px);box-shadow:0 20px 60px rgba(0,0,0,0.3);transform:translateY(16px) scale(0.97);transition:transform .25s,opacity .25s;opacity:0;border:1px solid var(--border)}
+.resolve-overlay.show .resolve-modal{transform:translateY(0) scale(1);opacity:1}
+.resolve-modal-header{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.resolve-modal-icon{width:44px;height:44px;border-radius:12px;background:rgba(16,185,129,0.12);display:flex;align-items:center;justify-content:center;color:var(--success);flex-shrink:0}
+.resolve-modal-title{font-size:17px;font-weight:800;color:var(--text)}
+.resolve-modal-sub{font-size:13px;color:var(--text-secondary);margin-bottom:20px;padding-left:56px;margin-top:2px}
+.resolve-cats-label{font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+.resolve-cats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.resolve-cat-card{padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px}
+.resolve-cat-card:hover{border-color:var(--primary-light);background:rgba(108,92,231,0.05)}
+.resolve-cat-card.selected{border-color:var(--primary);background:rgba(108,92,231,0.1)}
+.resolve-cat-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.resolve-cat-name{font-size:13px;font-weight:600;color:var(--text)}
+.resolve-cat-desc{font-size:11px;color:var(--text-secondary);margin-top:2px}
+.resolve-notes-label{font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.resolve-notes{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-family:inherit;resize:none;outline:none;transition:border-color .2s;height:72px}
+.resolve-notes:focus{border-color:var(--primary)}
+.resolve-modal-actions{display:flex;gap:10px;margin-top:18px}
+.resolve-cancel-btn{flex:1;padding:11px;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--text-secondary);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.resolve-cancel-btn:hover{border-color:var(--danger);color:var(--danger)}
+.resolve-confirm-btn{flex:2;padding:11px;border-radius:10px;border:none;background:var(--success);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px}
+.resolve-confirm-btn:hover{background:#059669;box-shadow:0 4px 14px rgba(16,185,129,0.4)}
+.resolve-confirm-btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
 
 .msg-date-divider{text-align:center;margin:16px 0}
 .msg-date-divider span{background:rgba(255,255,255,0.85);padding:4px 14px;border-radius:8px;font-size:11px;color:var(--text-secondary);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
@@ -356,6 +387,10 @@ h1,h2,h3,h4{font-family:'Space Grotesk','DM Sans',sans-serif}
                 </div>
                 <div class="chat-header-actions">
                     <button class="ch-action-btn" title="Search in chat"><i data-lucide="search" style="width:18px;height:18px"></i></button>
+                    <button class="resolve-btn" id="resolve-btn" title="Resolve Conversation" onclick="openResolveModal()">
+                        <i data-lucide="check-circle" style="width:15px;height:15px"></i>
+                        <span id="resolve-btn-text">Resolve</span>
+                    </button>
                     <button class="ch-action-btn" id="panel-toggle-btn" title="Customer Info" onclick="toggleCustomerPanel()"><i data-lucide="user" style="width:18px;height:18px"></i></button>
                     <button class="ch-action-btn" title="More"><i data-lucide="more-vertical" style="width:18px;height:18px"></i></button>
                 </div>
@@ -799,6 +834,20 @@ function selectChat(id) {
     document.getElementById('ch-status').textContent = c.status === 'open' ? 'Online' : c.status === 'pending' ? 'Pending' : 'Resolved';
     document.getElementById('ch-status').style.color = c.status === 'open' ? 'var(--success)' : c.status === 'pending' ? 'var(--warning)' : 'var(--text-secondary)';
 
+    // تحديث زرار Resolve حسب حالة المحادثة
+    const resolveBtn = document.getElementById('resolve-btn');
+    if (c.status === 'resolved') {
+        resolveBtn.classList.add('resolved-state');
+        resolveBtn.onclick = null;
+        document.getElementById('resolve-btn-text').textContent = 'Resolved';
+        resolveBtn.querySelector('i').setAttribute('data-lucide', 'check-circle-2');
+    } else {
+        resolveBtn.classList.remove('resolved-state');
+        resolveBtn.onclick = openResolveModal;
+        document.getElementById('resolve-btn-text').textContent = 'Resolve';
+        resolveBtn.querySelector('i').setAttribute('data-lucide', 'check-circle');
+    }
+
     renderMessages(c);
 
     /* تحديث لوحة العميل */
@@ -1143,6 +1192,136 @@ function init() {
     lucide.createIcons();
 }
 document.addEventListener('DOMContentLoaded', init);
+</script>
+
+<!-- ===== Resolve Conversation Modal ===== -->
+<div class="resolve-overlay" id="resolve-overlay" onclick="closeResolveModal(event)">
+    <div class="resolve-modal" id="resolve-modal">
+        <div class="resolve-modal-header">
+            <div class="resolve-modal-icon">
+                <i data-lucide="check-circle-2" style="width:22px;height:22px"></i>
+            </div>
+            <div class="resolve-modal-title">Resolve Conversation</div>
+        </div>
+        <div class="resolve-modal-sub">اختار تصنيف المحادثة قبل ما تعملها resolve</div>
+
+        <div class="resolve-cats-label">تصنيف المشكلة</div>
+        <div class="resolve-cats-grid">
+            <div class="resolve-cat-card" data-cat="technical" onclick="selectResolveCategory(this)">
+                <div class="resolve-cat-icon" style="background:rgba(239,68,68,0.1)">🔧</div>
+                <div>
+                    <div class="resolve-cat-name">مشكلة تقنية</div>
+                    <div class="resolve-cat-desc">عطل أو خلل في الجهاز</div>
+                </div>
+            </div>
+            <div class="resolve-cat-card" data-cat="billing" onclick="selectResolveCategory(this)">
+                <div class="resolve-cat-icon" style="background:rgba(245,158,11,0.1)">💳</div>
+                <div>
+                    <div class="resolve-cat-name">فاتورة / دفع</div>
+                    <div class="resolve-cat-desc">استفسار مالي أو خطأ بالفاتورة</div>
+                </div>
+            </div>
+            <div class="resolve-cat-card" data-cat="account" onclick="selectResolveCategory(this)">
+                <div class="resolve-cat-icon" style="background:rgba(108,92,231,0.1)">👤</div>
+                <div>
+                    <div class="resolve-cat-name">حساب المستخدم</div>
+                    <div class="resolve-cat-desc">تسجيل دخول أو كلمة مرور</div>
+                </div>
+            </div>
+            <div class="resolve-cat-card" data-cat="upgrade" onclick="selectResolveCategory(this)">
+                <div class="resolve-cat-icon" style="background:rgba(0,210,255,0.1)">⬆️</div>
+                <div>
+                    <div class="resolve-cat-name">ترقية / اشتراك</div>
+                    <div class="resolve-cat-desc">طلب ترقية الخطة</div>
+                </div>
+            </div>
+            <div class="resolve-cat-card" data-cat="inquiry" onclick="selectResolveCategory(this)">
+                <div class="resolve-cat-icon" style="background:rgba(16,185,129,0.1)">💬</div>
+                <div>
+                    <div class="resolve-cat-name">استفسار عام</div>
+                    <div class="resolve-cat-desc">سؤال أو معلومة</div>
+                </div>
+            </div>
+            <div class="resolve-cat-card" data-cat="other" onclick="selectResolveCategory(this)">
+                <div class="resolve-cat-icon" style="background:rgba(100,116,139,0.1)">📋</div>
+                <div>
+                    <div class="resolve-cat-name">أخرى</div>
+                    <div class="resolve-cat-desc">تصنيف مختلف</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resolve-notes-label">ملاحظة (اختياري)</div>
+        <textarea class="resolve-notes" id="resolve-notes" placeholder="اكتب ملخص للمشكلة اللي اتحلت..."></textarea>
+
+        <div class="resolve-modal-actions">
+            <button class="resolve-cancel-btn" onclick="closeResolveModal()">إلغاء</button>
+            <button class="resolve-confirm-btn" id="resolve-confirm-btn" onclick="confirmResolve()" disabled>
+                <i data-lucide="check" style="width:16px;height:16px"></i>
+                تأكيد الـ Resolve
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+let selectedResolveCategory = null;
+
+function openResolveModal() {
+    const c = conversations.find(x => x.id === selectedChatId);
+    if (!c || c.status === 'resolved') return;
+    selectedResolveCategory = null;
+    document.getElementById('resolve-notes').value = '';
+    document.getElementById('resolve-confirm-btn').disabled = true;
+    document.querySelectorAll('.resolve-cat-card').forEach(el => el.classList.remove('selected'));
+    document.getElementById('resolve-overlay').classList.add('show');
+    lucide.createIcons();
+}
+
+function closeResolveModal(e) {
+    if (e && e.target !== document.getElementById('resolve-overlay')) return;
+    document.getElementById('resolve-overlay').classList.remove('show');
+}
+
+function selectResolveCategory(el) {
+    document.querySelectorAll('.resolve-cat-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedResolveCategory = el.dataset.cat;
+    document.getElementById('resolve-confirm-btn').disabled = false;
+}
+
+function confirmResolve() {
+    if (!selectedResolveCategory) return;
+    const c = conversations.find(x => x.id === selectedChatId);
+    if (!c) return;
+
+    const catNames = {
+        technical: 'مشكلة تقنية', billing: 'فاتورة / دفع',
+        account: 'حساب المستخدم', upgrade: 'ترقية / اشتراك',
+        inquiry: 'استفسار عام', other: 'أخرى'
+    };
+    const notes = document.getElementById('resolve-notes').value.trim();
+
+    c.status = 'resolved';
+    c.resolveCategory = selectedResolveCategory;
+    c.resolveNotes = notes;
+
+    // تحديث الـ header
+    document.getElementById('ch-status').textContent = 'Resolved';
+    document.getElementById('ch-status').style.color = 'var(--text-secondary)';
+
+    // تحديث زرار Resolve
+    const btn = document.getElementById('resolve-btn');
+    btn.classList.add('resolved-state');
+    btn.onclick = null;
+    document.getElementById('resolve-btn-text').textContent = 'Resolved';
+    btn.querySelector('i').setAttribute('data-lucide', 'check-circle-2');
+
+    document.getElementById('resolve-overlay').classList.remove('show');
+    renderChatList(currentFilter, document.querySelector('.cl-search').value);
+    lucide.createIcons();
+    showToast(`✅ تم Resolve المحادثة — ${catNames[selectedResolveCategory]}`, 'success');
+}
 </script>
 </body>
 </html>
