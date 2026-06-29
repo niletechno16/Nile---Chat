@@ -27,7 +27,7 @@
     --sidebar-active: #6C5CE7;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh;display:flex;flex-direction:column}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh}
 h1,h2,h3,h4{font-family:'Space Grotesk','DM Sans',sans-serif}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -313,49 +313,10 @@ h1,h2,h3,h4{font-family:'Space Grotesk','DM Sans',sans-serif}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .fade-in{animation:fadeIn .3s ease}
-
-/* ===== Top Bar (Chatwoot-style) ===== */
-#topbar{height:48px;min-height:48px;background:var(--sidebar-bg);display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}
-.topbar-tabs{display:flex;align-items:center;gap:4px;height:100%}
-.topbar-tab{height:100%;display:flex;align-items:center;padding:0 14px;font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--sidebar-text);text-decoration:none;cursor:pointer;border:none;background:transparent;font-family:inherit;position:relative;transition:color .15s;white-space:nowrap}
-.topbar-tab:hover{color:#fff}
-.topbar-tab.active{color:#fff}
-.topbar-tab.active::after{content:'';position:absolute;left:14px;right:14px;bottom:0;height:2.5px;background:var(--primary);border-radius:2px 2px 0 0}
-.topbar-right{display:flex;align-items:center;gap:16px}
-.topbar-docs{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--sidebar-text);text-decoration:none;cursor:pointer;transition:color .15s}
-.topbar-docs:hover{color:#fff}
-
-/* ===== Settings Sub-Sidebar ===== */
-#settings-layout{flex:1;display:flex;overflow:hidden;width:100%}
-#settings-sidebar{width:260px;min-width:260px;background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;padding:20px 14px}
-.settings-sidebar-title{font-size:11px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.6px;padding:0 10px;margin-bottom:10px}
-.settings-nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13.5px;font-weight:500;color:var(--text);cursor:pointer;transition:all .15s;margin-bottom:2px;border:none;background:transparent;width:100%;text-align:right;font-family:inherit}
-.settings-nav-item:hover{background:var(--bg);color:var(--primary)}
-.settings-nav-item.active{background:rgba(108,92,231,0.1);color:var(--primary);font-weight:700}
-.settings-nav-item .beta-tag{margin-right:auto;font-size:9px;font-weight:700;color:var(--secondary);background:rgba(0,210,255,0.12);padding:2px 6px;border-radius:6px;letter-spacing:.3px}
-#settings-content-panel{flex:1;overflow-y:auto}
 </style>
 </head>
 <body>
-
-<!-- ===== TOP BAR (Chatwoot-style) ===== -->
-<header id="topbar">
-    <nav class="topbar-tabs">
-        <button class="topbar-tab active" data-toptab="conversations" onclick="navigateTopTab('conversations')">CONVERSATIONS</button>
-        <button class="topbar-tab" data-toptab="contacts" onclick="navigateTopTab('contacts')">CONTACTS</button>
-        <button class="topbar-tab" data-toptab="reports" onclick="navigateTopTab('reports')">REPORTS</button>
-        <button class="topbar-tab" data-toptab="campaigns" onclick="navigateTopTab('campaigns')">CAMPAIGNS</button>
-        <button class="topbar-tab" data-toptab="settings" onclick="navigateTopTab('settings')">SETTINGS</button>
-    </nav>
-    <div class="topbar-right">
-        <a class="topbar-docs" href="#" onclick="return false;">
-            <i data-lucide="book-open" style="width:14px;height:14px"></i>
-            Read docs
-        </a>
-    </div>
-</header>
-
-<div id="app" class="flex" style="flex:1;overflow:hidden">
+<div id="app" class="flex h-screen">
 
 <aside id="sidebar">
     <div class="sidebar-logo">N</div>
@@ -727,51 +688,6 @@ h1,h2,h3,h4{font-family:'Space Grotesk','DM Sans',sans-serif}
 
 <!-- SETTINGS PAGE -->
 <div id="page-settings" class="page flex flex-1">
-    <div id="settings-layout">
-        <aside id="settings-sidebar">
-            <div class="settings-sidebar-title">Settings</div>
-            <button class="settings-nav-item active" data-settings-nav="general" onclick="navigateSettingsSection('general', this)">
-                <i data-lucide="settings-2" style="width:16px;height:16px"></i> Account Settings
-            </button>
-            <button class="settings-nav-item" data-settings-nav="agents" onclick="navigateSettingsSection('agents', this)">
-                <i data-lucide="users" style="width:16px;height:16px"></i> Agents
-            </button>
-            <button class="settings-nav-item" data-settings-nav="teams" onclick="navigateSettingsSection('teams', this)">
-                <i data-lucide="users-round" style="width:16px;height:16px"></i> Teams
-            </button>
-            <button class="settings-nav-item" data-settings-nav="inboxes" onclick="navigateSettingsSection('inboxes', this)">
-                <i data-lucide="inbox" style="width:16px;height:16px"></i> Inboxes
-            </button>
-            <button class="settings-nav-item" data-settings-nav="labels" onclick="navigateSettingsSection('labels', this)">
-                <i data-lucide="tag" style="width:16px;height:16px"></i> Labels
-            </button>
-            <button class="settings-nav-item" data-settings-nav="custom-attributes" onclick="navigateSettingsSection('custom-attributes', this)">
-                <i data-lucide="list-tree" style="width:16px;height:16px"></i> Custom Attributes
-            </button>
-            <button class="settings-nav-item" data-settings-nav="automation" onclick="navigateSettingsSection('automation', this)">
-                <i data-lucide="workflow" style="width:16px;height:16px"></i> Automation
-            </button>
-            <button class="settings-nav-item" data-settings-nav="macros" onclick="navigateSettingsSection('macros', this)">
-                <i data-lucide="terminal" style="width:16px;height:16px"></i> Macros
-            </button>
-            <button class="settings-nav-item" data-settings-nav="canned-responses" onclick="navigateSettingsSection('canned-responses', this)">
-                <i data-lucide="message-square-text" style="width:16px;height:16px"></i> Canned Responses
-            </button>
-            <button class="settings-nav-item" data-settings-nav="integrations" onclick="navigateSettingsSection('integrations', this)">
-                <i data-lucide="plug" style="width:16px;height:16px"></i> Integrations
-            </button>
-            <button class="settings-nav-item" data-settings-nav="audit-logs" onclick="navigateSettingsSection('audit-logs', this)">
-                <i data-lucide="file-clock" style="width:16px;height:16px"></i> Audit Logs
-            </button>
-            <button class="settings-nav-item" data-settings-nav="custom-roles" onclick="navigateSettingsSection('custom-roles', this)">
-                <i data-lucide="shield-check" style="width:16px;height:16px"></i> Custom Roles <span class="beta-tag">BETA</span>
-            </button>
-            <button class="settings-nav-item" data-settings-nav="sla" onclick="navigateSettingsSection('sla', this)">
-                <i data-lucide="gauge" style="width:16px;height:16px"></i> SLA <span class="beta-tag">BETA</span>
-            </button>
-        </aside>
-
-        <div id="settings-content-panel">
     <div class="page-content" style="max-width:700px">
         <div class="page-header"><h2>Settings</h2></div>
         <div class="settings-section">
@@ -801,9 +717,7 @@ h1,h2,h3,h4{font-family:'Space Grotesk','DM Sans',sans-serif}
             <div class="setting-row"><div><div class="setting-label">Session Timeout</div><div class="setting-desc">Auto-logout after inactivity</div></div><span style="font-size:14px;color:var(--text-secondary)">30 minutes</span></div>
         </div>
     </div>
-        </div><!-- /settings-content-panel -->
-    </div><!-- /settings-layout -->
-</div><!-- /page-settings -->
+</div>
 
 </div></div>
 <div id="toast-container"></div>
@@ -951,44 +865,6 @@ function navigateTo(page) {
 
     document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
     document.querySelector(`[data-page="${page}"]`).classList.add('active');
-
-    // مزامنة التوب بار: لو وصلنا لصفحة الإعدادات من السايدبار الجانبي، نفعّل تاب SETTINGS فوق
-    syncTopbarWithPage(page);
-
-    lucide.createIcons();
-}
-
-/* ===== التوب بار (Conversations / Contacts / Reports / Campaigns / Settings) =====
-   ملحوظة: دلوقتي دي عناصر UI شكلية بس (mock)، زي اللي في Chatwoot، علشان نشوف الشكل.
-   لاحقاً كل تاب من دول هيتحول لصفحة/فولدر حقيقي مستقل. */
-function syncTopbarWithPage(page) {
-    const map = { chats: 'conversations', contacts: 'contacts', analytics: 'reports', settings: 'settings' };
-    const topTab = map[page];
-    if (!topTab) return; // صفحات زي ai / templates مش ليها تاب فوق دلوقتي
-    document.querySelectorAll('.topbar-tab').forEach(t => t.classList.remove('active'));
-    const target = document.querySelector(`[data-toptab="${topTab}"]`);
-    if (target) target.classList.add('active');
-}
-
-function navigateTopTab(tab) {
-    document.querySelectorAll('.topbar-tab').forEach(t => t.classList.remove('active'));
-    document.querySelector(`[data-toptab="${tab}"]`).classList.add('active');
-
-    // ربط التاب بالصفحة المتاحة فعليًا في الـ sidebar الجانبي (mock للوقت الحالي)
-    const map = { conversations: 'chats', contacts: 'contacts', reports: 'analytics', settings: 'settings' };
-    if (map[tab]) {
-        navigateTo(map[tab]);
-    } else {
-        // CAMPAIGNS لسه مفيش صفحة حقيقية ليها — هنعرض توست بس دلوقتي
-        showToast('Campaigns page coming soon', 'info');
-    }
-}
-
-/* ===== التنقل داخل صفحة Settings (الـ sub-sidebar الجانبية) ===== */
-function navigateSettingsSection(section, el) {
-    document.querySelectorAll('.settings-nav-item').forEach(b => b.classList.remove('active'));
-    el.classList.add('active');
-    // دلوقتي كل الأقسام بتعرض نفس المحتوى (mock UI)، وكل قسم لاحقًا هيبقى ليه صفحة/فولدر مستقل خاص بيه
     lucide.createIcons();
 }
 
@@ -1097,17 +973,22 @@ function selectChat(id) {
 
 function renderMessages(c) {
     const container = document.getElementById('chat-messages');
-    container.innerHTML = `
-        <div class="msg-date-divider"><span>Today</span></div>
-        ${c.messages.map(m => `
-            <div class="msg-row ${m.from === 'agent' ? 'sent' : 'received'} fade-in">
-                <div class="msg-bubble">
-                    ${m.text}
-                    <div class="msg-time">${m.time}${m.from === 'agent' ? ' <span class="msg-checks"><i data-lucide="checks" style="width:14px;height:14px;display:inline;vertical-align:middle"></i></span>' : ''}</div>
-                </div>
+    const msgsHtml = c.messages.map(m => {
+        if (m.from === 'system') {
+            return `<div class="msg-date-divider fade-in" style="margin:12px 0">
+                <span style="background:rgba(16,185,129,0.12);color:var(--success);border:1px solid rgba(16,185,129,0.25);padding:6px 18px;border-radius:20px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px">
+                    ${m.text} <span style="font-size:10px;opacity:.7;font-weight:400">${m.time}</span>
+                </span>
+            </div>`;
+        }
+        return `<div class="msg-row ${m.from === 'agent' ? 'sent' : 'received'} fade-in">
+            <div class="msg-bubble">
+                ${m.text}
+                <div class="msg-time">${m.time}${m.from === 'agent' ? ' <span class="msg-checks"><i data-lucide="checks" style="width:14px;height:14px;display:inline;vertical-align:middle"></i></span>' : ''}</div>
             </div>
-        `).join('')}
-    `;
+        </div>`;
+    }).join('');
+    container.innerHTML = `<div class="msg-date-divider"><span>Today</span></div>` + msgsHtml;
     container.scrollTop = container.scrollHeight;
     lucide.createIcons();
 }
@@ -1680,10 +1561,6 @@ function closeResolveModal(e) {
     document.getElementById('resolve-overlay').classList.remove('show');
 }
 
-function forceCloseResolveModal() {
-    document.getElementById('resolve-overlay').classList.remove('show');
-}
-
 function selectResolveCategory(el) {
     document.querySelectorAll('.resolve-cat-card').forEach(c => c.classList.remove('selected'));
     el.classList.add('selected');
@@ -1703,21 +1580,33 @@ function confirmResolve() {
     c.status = 'resolved';
     c.resolveCategory = selectedResolveCategory;
     c.resolveNotes = notes;
+    c.lastMsg = `✅ تم حل المشكلة — ${catName}`;
 
-    forceCloseResolveModal();
+    // إضافة رسالة الـ resolve في المحادثة نفسها
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'});
+    c.messages.push({ from: 'system', text: `✅ تم حل المشكلة — ${catName}`, time: timeStr });
 
-    // إخفاء منطقة المحادثة وإظهار الـ empty state
-    document.getElementById('chat-area').style.display = 'none';
-    document.getElementById('empty-chat').style.display = 'flex';
-    selectedChatId = null;
+    // تحديث الـ header
+    document.getElementById('ch-status').textContent = 'Resolved';
+    document.getElementById('ch-status').style.color = 'var(--text-secondary)';
 
-    // إعادة رسم القائمة على الفلتر الحالي (مش resolved) عشان الكارد يختفي
+    // تحديث زرار Resolve
+    const btn = document.getElementById('resolve-btn');
+    btn.classList.add('resolved-state');
+    btn.onclick = null;
+    document.getElementById('resolve-btn-text').textContent = 'Resolved';
+    btn.querySelector('i').setAttribute('data-lucide', 'check-circle-2');
+
+    // إغلاق البوب اب
+    document.getElementById('resolve-overlay').classList.remove('show');
+
+    // تحديث شاشة الشات وعرض الرسالة الجديدة
+    renderMessages(c);
+
     renderChatList(currentFilter, document.querySelector('.cl-search').value);
-
-    // toast بالكاتيجوري
-    showToast(`✅ Problem resolved as: ${catName}`, 'success');
-
     lucide.createIcons();
+    showToast(`✅ تم Resolve المحادثة — ${catName}`, 'success');
 }
 </script>
 </body>
